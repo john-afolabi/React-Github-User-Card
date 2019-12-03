@@ -15,12 +15,20 @@ export default class UserList extends Component {
       .get("https://api.github.com/users/john-afolabi/followers")
       .then(response => {
         response.data.forEach(user => {
-          axios.get(`${user.url}`).then(response => {
-            this.setState({
-              users: [...this.state.users, response.data]
+          axios
+            .get(`${user.url}`)
+            .then(response => {
+              this.setState({
+                users: [...this.state.users, response.data]
+              });
+            })
+            .catch(error => {
+              alert(error);
             });
-          });
         });
+      })
+      .catch(error => {
+        alert(error);
       });
   }
 
